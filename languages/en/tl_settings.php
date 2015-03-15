@@ -26,5 +26,7 @@ $GLOBALS['TL_LANG']['tl_settings']['gc_album_import_copy_files']['0'] = "Beim Im
 $GLOBALS['TL_LANG']['tl_settings']['gc_album_import_copy_files']['1'] = "Wenn diese Einstellung gewählt wird, erstellt das System beim Importieren von Bildern in ein Portfolio automatisch eine Kopie im Verzeichnis \"files/gallery_creator_albums/{albumname}\".";
 $GLOBALS['TL_LANG']['tl_settings']['gc_read_exif']['0'] = "Exif Kameradaten auslesen";
 $GLOBALS['TL_LANG']['tl_settings']['gc_read_exif']['1'] = "Exif Kameradaten auslesen (Speicherintensiv!!!)";
- 
-?>
+// neu
+$GLOBALS['TL_LANG']['tl_settings']['gc_upload_folder_observer_delete_orphaned_entries'][0] = 'Upload-Verzeichnis-Observer: Auto Delete aktivieren';
+$GLOBALS['TL_LANG']['tl_settings']['gc_upload_folder_observer_delete_orphaned_entries'][1] = 'Upload-Verzeichnis-Observer: Verwaiste Datensätze (ohne Bilddatei) per Cron löschen.';
+

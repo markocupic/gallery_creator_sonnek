@@ -67,10 +67,13 @@ class GalleryCreatorSonnek extends \System
                         $arrPictures['path'][] = $objFileModel->path;
 
                         // Delete entries if image file no longer exists
-                        if(!is_file(TL_ROOT . '/' . $objFileModel->path))
+                        if($GLOBALS['TL_CONFIG']['gc_upload_folder_observer_delete_orphaned_entries'])
                         {
-                            \System::log('DELETE FROM tl_gallery_creator_pictures WHERE id=' . $objPictures->id, __METHOD__, TL_GENERAL);
-                            $objPictures->delete();
+                            if(!is_file(TL_ROOT . '/' . $objFileModel->path))
+                            {
+                                \System::log('DELETE FROM tl_gallery_creator_pictures WHERE id=' . $objPictures->id, __METHOD__, TL_GENERAL);
+                                $objPictures->delete();
+                            }
                         }
                     }
                 }
