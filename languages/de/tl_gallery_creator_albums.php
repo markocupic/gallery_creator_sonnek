@@ -89,8 +89,11 @@ $GLOBALS['TL_LANG']['tl_gallery_creator_albums']['date_asc'] = "Datum (aufsteige
 $GLOBALS['TL_LANG']['tl_gallery_creator_albums']['date_desc'] = "Datum (absteigend)";
 $GLOBALS['TL_LANG']['tl_gallery_creator_albums']['custom'] = "Individuelle Reihenfolge";
 $GLOBALS['TL_LANG']['tl_gallery_creator_albums']['messages']['revise_database'] = "Datenbank bereinigen: Beschädigte/ungültige/verwaiste Datenbankeinträge entfernen ";
-$GLOBALS['TL_LANG']['tl_gallery_creator_pictures']['revise_tables']['0'] = "Datenbank bereinigen";
-$GLOBALS['TL_LANG']['tl_gallery_creator_pictures']['revise_tables']['1'] = "Alte/fehlerhafte Datenbankeinträge löschen";
-$GLOBALS['TL_LANG']['tl_gallery_creator_pictures']['reviseTablesBtn']['0'] = "Datenbank bereinigen";
- 
+$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['revise_tables']['0'] = "Datenbank bereinigen";
+$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['revise_tables']['1'] = "Alte/fehlerhafte Datenbankeinträge löschen";
+$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['reviseTablesBtn']['0'] = "Datenbank bereinigen";
+
+// new
+$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['observeAssignedDir']['0'] = "Upload Verzeichnis auf neue Bilder überwachen";
+$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['observeAssignedDir']['1'] = "Bei aktivierter Checkbox wird das zugeordnete Upload-Verzeichnis per Cron auf neue Bilddateien überwacht, welche automatisch in die Datenbank eingelesen werden.";
 ?>

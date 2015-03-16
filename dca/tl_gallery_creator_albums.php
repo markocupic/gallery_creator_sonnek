@@ -29,6 +29,16 @@ $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['config']['onload_callback'][] =
 $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['config']['onload_callback'][] = array('tl_gallery_creator_albums_sonnek', 'setAlbumSorting');
 
 
+// Fields
+$GLOBALS['TL_DCA']['tl_gallery_creator_albums']['fields']['observeAssignedDir'] = array(
+
+    'label'            => &$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['observeAssignedDir'],
+    'exclude'          => true,
+    'inputType'        => 'checkbox',
+    'eval'             => array('doNotShow' => false, 'submitOnChange' => false),
+    'sql'              => "char(1) NOT NULL default ''"
+);
+
 /**
  * Class tl_gallery_creator_albums_sonnek
  *
@@ -49,6 +59,10 @@ class tl_gallery_creator_albums_sonnek extends Backend
         // Entfernen von event_location
         $strDefault = $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default'];
         $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default'] = str_replace('event_location', '', $strDefault);
+
+        // Add Field to default palette
+        $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default'] = str_replace('assignedDir', 'assignedDir,observeAssignedDir', $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default']);
+
     }
 
     /**

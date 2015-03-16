@@ -1,5 +1,4 @@
 <script>
-$( document ).ready(function() {
     /**
      * Run Contao Scheduler
      * @type {XMLHttpRequest}
@@ -16,5 +15,5 @@ $( document ).ready(function() {
     };
 
     xhr.send();
-});
+
 </script>

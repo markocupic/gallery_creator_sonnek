@@ -41,6 +41,10 @@ class GalleryCreatorSonnek extends \System
         }
         while ($objAlbum->next())
         {
+            if(!$objAlbum->observeAssignedDir)
+            {
+                continue;
+            }
             $arrNewFiles = array();
 
             $objFolderModel = \FilesModel::findByUuid($objAlbum->assignedDir);
@@ -99,9 +103,17 @@ class GalleryCreatorSonnek extends \System
                         {
 
                             // clean filename
-                            $strNewName = $objFile->dirname . '/' . $objFile->filename . '.' . strtolower($objFile->extension);
+                            $strNewName = $objFile->dirname . '/' . $objFile->filename . '.' . $objFile->extension;
                             $strNewName = str_replace(TL_ROOT . '/', '', $strNewName);
-                            $strNewName = \MCupic\GalleryCreator\GcHelpers::generateUniqueFilename($strNewName);
+                            $strNewName = strip_tags($strNewName);
+                            $strNewName = utf8_romanize($strNewName);
+                            $strNewName = str_replace('"', '', $strNewName);
+                            $strNewName = str_replace(' ', '_', $strNewName);
+                            if (preg_match('/\.$/', $strNewName))
+                            {
+                                throw new Exception($GLOBALS['TL_LANG']['ERR']['invalidName']);
+                            }
+
                             if ($objFile->renameTo($strNewName))
                             {
                                 $arrNewFiles[] = $strNewName;
