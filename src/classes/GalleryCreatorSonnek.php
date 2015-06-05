@@ -24,6 +24,11 @@ namespace MCupic\GalleryCreatorSonnek;
 class GalleryCreatorSonnek extends \System
 {
 
+    /*
+     * Accepted files
+     */
+    public static $acceptedFiles = 'jpeg,jpg,png,gif,tiff';
+
     /**
      * observerUploadFolder
      */
@@ -41,7 +46,7 @@ class GalleryCreatorSonnek extends \System
         }
         while ($objAlbum->next())
         {
-            if(!$objAlbum->observeAssignedDir)
+            if (!$objAlbum->observeAssignedDir)
             {
                 continue;
             }
@@ -71,9 +76,9 @@ class GalleryCreatorSonnek extends \System
                         $arrPictures['path'][] = $objFileModel->path;
 
                         // Delete entries if image file no longer exists
-                        if($GLOBALS['TL_CONFIG']['gc_upload_folder_observer_delete_orphaned_entries'])
+                        if ($GLOBALS['TL_CONFIG']['gc_upload_folder_observer_delete_orphaned_entries'])
                         {
-                            if(!is_file(TL_ROOT . '/' . $objFileModel->path))
+                            if (!is_file(TL_ROOT . '/' . $objFileModel->path))
                             {
                                 \System::log('DELETE FROM tl_gallery_creator_pictures WHERE id=' . $objPictures->id, __METHOD__, TL_GENERAL);
                                 $objPictures->delete();
@@ -87,6 +92,7 @@ class GalleryCreatorSonnek extends \System
 
             foreach ($arrFiles as $strPath)
             {
+
                 if (is_file(TL_ROOT . '/' . $objFolderModel->path . '/' . $strPath))
                 {
                     $strFileSRC = $objFolderModel->path . '/' . $strPath;
@@ -95,11 +101,11 @@ class GalleryCreatorSonnek extends \System
                     {
                         if (in_array($strFileSRC, $arrPictures['path']))
                         {
-                            // Continue, if the image-file is allready member ob the album
+                            // Continue, if the image-file is already member ob the album
                             continue;
                         }
 
-                        if (strtolower($objFile->extension) == 'jpg' || strtolower($objFile->extension) == 'jpeg')
+                        if (in_array($objFile->extension, explode(',', self::$acceptedFiles)))
                         {
 
                             // clean filename
@@ -134,17 +140,17 @@ class GalleryCreatorSonnek extends \System
     }
 
     /**
-     * Do some custom modifications
-     * @param Module $objModule
+     * @param \Module $objModule
      * @param null $objAlbum
+     * @return mixed
      */
-    public function modifyTemplate(\Module $objModule, $objAlbum=null)
+    public function modifyTemplate(\Module $objModule, $objAlbum = null)
     {
-        return;
-        die(print_r($objModule->Template,true));
+        return $objModule->Template;
+        //die(print_r($objModule->Template,true));
         global $objPage;
         $objPage->pageTitle = 'Bildergalerie';
-        if($objAlbum !== null)
+        if ($objAlbum !== null)
         {
             // display the album name in the head section of your page (title tag)
             $objPage->pageTitle = specialchars($objAlbum->name);
