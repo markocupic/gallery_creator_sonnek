@@ -96,4 +96,6 @@ $GLOBALS['TL_LANG']['tl_gallery_creator_albums']['reviseTablesBtn']['0'] = "Date
 // new
 $GLOBALS['TL_LANG']['tl_gallery_creator_albums']['observeAssignedDir']['0'] = "Upload Verzeichnis auf neue Bilder überwachen";
 $GLOBALS['TL_LANG']['tl_gallery_creator_albums']['observeAssignedDir']['1'] = "Bei aktivierter Checkbox wird das zugeordnete Upload-Verzeichnis per Cron auf neue Bilddateien überwacht, welche automatisch in die Datenbank eingelesen werden.";
+$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['deleteOrphanedDatarecords']['0'] = "Bilddatensätze ohne zugehörige Datei aus der Datenbank löschen";
+$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['deleteOrphanedDatarecords']['1'] = "Bei aktivierter Checkbox wird geprüft, ob für den Datensatz auch eine Datei auf dem Server vorhanden ist. Wenn nein, wird der Datensatz per Cron aus der Db gelöscht.";
 ?>

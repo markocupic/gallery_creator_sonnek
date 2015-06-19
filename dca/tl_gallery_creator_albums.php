@@ -39,6 +39,16 @@ $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['fields']['observeAssignedDir'] 
     'sql'              => "char(1) NOT NULL default ''"
 );
 
+// Fields
+$GLOBALS['TL_DCA']['tl_gallery_creator_albums']['fields']['deleteOrphanedDatarecords'] = array(
+
+    'label'            => &$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['deleteOrphanedDatarecords'],
+    'exclude'          => true,
+    'inputType'        => 'checkbox',
+    'eval'             => array('doNotShow' => false, 'submitOnChange' => false),
+    'sql'              => "char(1) NOT NULL default ''"
+);
+
 /**
  * Class tl_gallery_creator_albums_sonnek
  *
@@ -61,7 +71,7 @@ class tl_gallery_creator_albums_sonnek extends Backend
         $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default'] = str_replace('event_location', '', $strDefault);
 
         // Add Field to default palette
-        $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default'] = str_replace('assignedDir', 'assignedDir,observeAssignedDir', $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default']);
+        $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default'] = str_replace('assignedDir', 'assignedDir,observeAssignedDir,deleteOrphanedDatarecords', $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default']);
 
     }
 

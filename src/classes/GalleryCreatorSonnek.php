@@ -50,8 +50,32 @@ class GalleryCreatorSonnek extends \System
             {
                 continue;
             }
-            $arrNewFiles = array();
 
+            // Clean Datarecords if there is no related file on the server
+            if($objAlbum->deleteOrphanedDatarecords)
+            {
+                $objPictureModel = \MCupic\GalleryCreatorPicturesModel::findByPid($objAlbum->id);
+                if ($objPictureModel !== null)
+                {
+                    while ($objPictureModel->next())
+                    {
+                        if (\Validator::isUuid($objPictureModel->uuid))
+                        {
+                            $objFilesModel = \FilesModel::findByUuid($objPictureModel->uuid);
+                            if ($objFilesModel !== null)
+                            {
+                                if (!is_file(TL_ROOT . '/' . $objFilesModel->path))
+                                {
+                                    $objPictureModel->delete();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            $arrNewFiles = array();
             $objFolderModel = \FilesModel::findByUuid($objAlbum->assignedDir);
             if ($objFolderModel === null)
             {
