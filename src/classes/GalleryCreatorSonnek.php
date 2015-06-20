@@ -51,9 +51,11 @@ class GalleryCreatorSonnek extends \System
                 continue;
             }
 
+            $arrImgSRC = [];
+
+            // Case 1:
             // Clean Datarecords if there is no related file on the server
-            if($objAlbum->deleteOrphanedDatarecords)
-            {
+
                 $objPictureModel = \MCupic\GalleryCreatorPicturesModel::findByPid($objAlbum->id);
                 if ($objPictureModel !== null)
                 {
@@ -64,17 +66,23 @@ class GalleryCreatorSonnek extends \System
                             $objFilesModel = \FilesModel::findByUuid($objPictureModel->uuid);
                             if ($objFilesModel !== null)
                             {
-                                if (!is_file(TL_ROOT . '/' . $objFilesModel->path))
+                                $arrImgSRC[] = $objFilesModel->path;
+                                if($objAlbum->deleteOrphanedDatarecords)
                                 {
-                                    $objPictureModel->delete();
+                                    if (!is_file(TL_ROOT . '/' . $objFilesModel->path))
+                                    {
+                                        \System::log('DELETE FROM tl_gallery_creator_pictures WHERE id=' . $objPictureModel->id, __METHOD__, TL_GENERAL);
+                                        $objPictureModel->delete();
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
 
+            // Case 2:
+            // Check the album directory for some new files
             $arrNewFiles = array();
             $objFolderModel = \FilesModel::findByUuid($objAlbum->assignedDir);
             if ($objFolderModel === null)
@@ -86,31 +94,6 @@ class GalleryCreatorSonnek extends \System
                 continue;
             }
 
-            $arrPictures = [];
-            $arrPictures['path'] = [];
-            $objPictures = \MCupic\GalleryCreatorPicturesModel::findByPid($objAlbum->id);
-            if ($objPictures !== null)
-            {
-                while ($objPictures->next())
-                {
-                    // Grab all File path's from tha album into $arrPictures['path']
-                    $objFileModel = \FilesModel::findByUuid($objPictures->uuid);
-                    if ($objFileModel !== null)
-                    {
-                        $arrPictures['path'][] = $objFileModel->path;
-
-                        // Delete entries if image file no longer exists
-                        if ($GLOBALS['TL_CONFIG']['gc_upload_folder_observer_delete_orphaned_entries'])
-                        {
-                            if (!is_file(TL_ROOT . '/' . $objFileModel->path))
-                            {
-                                \System::log('DELETE FROM tl_gallery_creator_pictures WHERE id=' . $objPictures->id, __METHOD__, TL_GENERAL);
-                                $objPictures->delete();
-                            }
-                        }
-                    }
-                }
-            }
             // Scan the album directory
             $arrFiles = scan(TL_ROOT . '/' . $objFolderModel->path);
 
@@ -123,7 +106,7 @@ class GalleryCreatorSonnek extends \System
                     $objFile = new \File($strFileSRC);
                     if ($objFile->isGdImage)
                     {
-                        if (in_array($strFileSRC, $arrPictures['path']))
+                        if (in_array($strFileSRC, $arrImgSRC))
                         {
                             // Continue, if the image-file is already member ob the album
                             continue;

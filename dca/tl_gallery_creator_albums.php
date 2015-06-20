@@ -11,7 +11,6 @@
  */
 
 
-
 /**
  * Table tl_gallery_creator_albums
  */
@@ -32,21 +31,21 @@ $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['config']['onload_callback'][] =
 // Fields
 $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['fields']['observeAssignedDir'] = array(
 
-    'label'            => &$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['observeAssignedDir'],
-    'exclude'          => true,
-    'inputType'        => 'checkbox',
-    'eval'             => array('doNotShow' => false, 'submitOnChange' => false),
-    'sql'              => "char(1) NOT NULL default ''"
+    'label'     => &$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['observeAssignedDir'],
+    'exclude'   => true,
+    'inputType' => 'checkbox',
+    'eval'      => array('doNotShow' => false, 'submitOnChange' => true),
+    'sql'       => "char(1) NOT NULL default ''"
 );
 
 // Fields
 $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['fields']['deleteOrphanedDatarecords'] = array(
 
-    'label'            => &$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['deleteOrphanedDatarecords'],
-    'exclude'          => true,
-    'inputType'        => 'checkbox',
-    'eval'             => array('doNotShow' => false, 'submitOnChange' => false),
-    'sql'              => "char(1) NOT NULL default ''"
+    'label'     => &$GLOBALS['TL_LANG']['tl_gallery_creator_albums']['deleteOrphanedDatarecords'],
+    'exclude'   => true,
+    'inputType' => 'checkbox',
+    'eval'      => array('doNotShow' => false, 'submitOnChange' => false),
+    'sql'       => "char(1) NOT NULL default ''"
 );
 
 /**
@@ -71,7 +70,11 @@ class tl_gallery_creator_albums_sonnek extends Backend
         $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default'] = str_replace('event_location', '', $strDefault);
 
         // Add Field to default palette
-        $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default'] = str_replace('assignedDir', 'assignedDir,observeAssignedDir,deleteOrphanedDatarecords', $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default']);
+        $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default'] = str_replace('assignedDir', 'assignedDir,observeAssignedDir', $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['default']);
+
+        // Add subpalette
+        $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['subpalettes']['observeAssignedDir'] = 'deleteOrphanedDatarecords';
+        $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['palettes']['__selector__'][] = 'observeAssignedDir';
 
     }
 
@@ -84,15 +87,15 @@ class tl_gallery_creator_albums_sonnek extends Backend
         $sortingField = strlen($GLOBALS['TL_DCA']['tl_gallery_creator_albums']['list']['sorting']['field']) ? $GLOBALS['TL_DCA']['tl_gallery_creator_albums']['list']['sorting']['field'] : 'date';
         $arrField = array();
         $objAlbums = MCupic\GalleryCreatorAlbumsModel::findAll();
-        if($objAlbums === null)
+        if ($objAlbums === null)
         {
             return;
         }
-        while($objAlbums->next())
+        while ($objAlbums->next())
         {
             $arrField[$objAlbums->id] = strtolower($objAlbums->$sortingField);
         }
-        if($GLOBALS['TL_DCA']['tl_gallery_creator_albums']['list']['sorting']['direction'] == 'desc')
+        if ($GLOBALS['TL_DCA']['tl_gallery_creator_albums']['list']['sorting']['direction'] == 'desc')
         {
             // desc
             arsort($arrField);
@@ -103,10 +106,10 @@ class tl_gallery_creator_albums_sonnek extends Backend
             asort($arrField);
         }
         $sorting = 100;
-        foreach($arrField as $albumId => $v)
+        foreach ($arrField as $albumId => $v)
         {
             $objAlbum = MCupic\GalleryCreatorAlbumsModel::findByPk($albumId);
-            if($objAlbum === null)
+            if ($objAlbum === null)
             {
                 continue;
             }
