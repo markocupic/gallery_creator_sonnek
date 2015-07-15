@@ -17,12 +17,14 @@
  
 $GLOBALS['TL_LANG']['MOD']['gallery_creator']['0'] = "Portfolio-Manager";
 $GLOBALS['TL_LANG']['MOD']['gallery_creator']['1'] = "Portfolios erstellen und bearbeiten.";
-$GLOBALS['TL_LANG']['FMD']['module_type_gallery_creator'] = "Portfolio";
-$GLOBALS['TL_LANG']['FMD']['gallery_creator']['0'] = "Portfolio-Frontend-Modul";
-$GLOBALS['TL_LANG']['FMD']['gallery_creator']['1'] = "Portfolios als Frontend-Modul einbinden.";
+$GLOBALS['TL_LANG']['FMD']['fmd_type_gallery_creator'] = "Portfolio";
+$GLOBALS['TL_LANG']['FMD']['gallery_creator_fmd']['0'] = "Portfolio-Frontend-Modul";
+$GLOBALS['TL_LANG']['FMD']['gallery_creator_fmd']['1'] = "Portfolios als Frontend-Modul einbinden.";
 $GLOBALS['TL_LANG']['CTE']['ce_type_gallery_creator'] = "Portfolio";
-$GLOBALS['TL_LANG']['CTE']['gallery_creator']['0'] = "Portfolio-Inhaltselement";
-$GLOBALS['TL_LANG']['CTE']['gallery_creator']['1'] = "Portfolios als Inhaltselement einbinden.";
+$GLOBALS['TL_LANG']['CTE']['gallery_creator_ce']['0'] = "Portfolio-Inhaltselement";
+$GLOBALS['TL_LANG']['CTE']['gallery_creator_ce']['1'] = "Portfolios als Inhaltselement einbinden.";
+$GLOBALS['TL_LANG']['CTE']['gallery_creator_ce_news']['0'] = "Portfolio-News-Inhaltselement";
+$GLOBALS['TL_LANG']['CTE']['gallery_creator_ce_news']['1'] = "Ein Portfolio im Newsbeitrag anzeigen lassen.";
 
 $GLOBALS['TL_LANG']['FMD']['scheduler'] = "Cron/Scheduler";
 $GLOBALS['TL_LANG']['FMD']['start_scheduler']['0'] = "Scheduler im FE per Ajax auslösen";
